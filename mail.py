@@ -113,6 +113,7 @@ recipient = os.environ['recipient']
 username = os.environ['username']
 password = os.environ['password']
 
+os.environ['TZ'] = 'Europe/London'
 now = datetime.datetime.now()
 print(now)
 year = now.year

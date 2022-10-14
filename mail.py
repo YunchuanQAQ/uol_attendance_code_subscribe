@@ -3,6 +3,7 @@ import urllib
 import http.cookiejar
 import json
 import datetime
+import pytz
 
 
 def simulate_login(username, password, year, month, day):
@@ -117,8 +118,8 @@ recipient = os.environ['recipient']
 username = os.environ['username']
 password = os.environ['password']
 
-os.environ['TZ'] = 'America/Los_Angeles'
-now = datetime.datetime.now()
+time_zone = pytz.timezone('Europe/London')
+now = datetime.datetime.now(tz=time_zone)
 print(now)
 year = now.year
 month = now.month

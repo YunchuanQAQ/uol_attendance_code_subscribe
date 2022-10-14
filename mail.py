@@ -114,6 +114,7 @@ username = os.environ['username']
 password = os.environ['password']
 
 now = datetime.datetime.now()
+print(now)
 year = now.year
 month = now.month
 day = now.day

@@ -29,6 +29,8 @@ jobs:
       run: |
         python ./mail.py
       env:
-        user: ${{secrets.USER}}
-        password: ${{secrets.PASSWORD}}
+        sender_email: ${{secrets.SEND}}
+        sender_password: ${{secrets.SENDER_PASSWORD}}
         recipient: ${{secrets.RECIPIENT}}
+        username: ${{secrets.USERNAME}}
+        password: ${{secrets.PASSWORD}}

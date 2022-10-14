@@ -84,8 +84,9 @@ def get_class_info(html, date_time):
 
     if len(result_list) == 0:
         result_list = ['', '', '']
-    
+
     return result_list
+
 
 def send_email(user, pwd, recipient, subject, body):
     import smtplib
@@ -116,7 +117,7 @@ recipient = os.environ['recipient']
 username = os.environ['username']
 password = os.environ['password']
 
-os.environ['TZ'] = 'Europe/London'
+os.environ['TZ'] = 'America/Los_Angeles'
 now = datetime.datetime.now()
 print(now)
 year = now.year

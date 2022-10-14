@@ -107,7 +107,7 @@ def send_email(user, pwd, recipient, subject, body):
         print("failed to send mail")
 
 
-sender_email = os.environ['send']
+sender_email = os.environ['sender']
 sender_password = os.environ['sender_password']
 recipient = os.environ['recipient']
 username = os.environ['username']

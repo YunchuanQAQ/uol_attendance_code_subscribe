@@ -127,7 +127,8 @@ start_time = class_info[0]
 class_name = class_info[1]
 attendance_code = class_info[2]
 
+email_content = 'The attendance code for ' + class_name + ' on ' + start_time + ' is ' + attendance_code
 if attendance_code != '':
-    send_email(sender_email, sender_password, recipient, 'Attendance code found', attendance_code)
+    send_email(sender_email, sender_password, recipient, 'Attendance code found', email_content)
 else:
     print('no found')

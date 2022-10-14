@@ -81,8 +81,11 @@ def get_class_info(html, date_time):
             result_list.append(one_class['attendancecode'])
         else:
             continue
-    return result_list
 
+    if len(result_list) == 0:
+        result_list = ['', '', '']
+    
+    return result_list
 
 def send_email(user, pwd, recipient, subject, body):
     import smtplib

@@ -127,17 +127,38 @@ month = now.month
 day = now.day
 hour = now.hour
 
-html = simulate_login(username, password, year, month, day)
-formatted_date_time = reformat_date_time(year, month, day, hour, 0)
+# wait until 8:55 to search code
+if hour == 8:
+    while now.minute < 55:
+        time.sleep(max(55 - now.minute, 0) * 60)
 
-class_info = get_class_info(html, formatted_date_time)
-start_time = class_info[0]
-class_name = class_info[1]
-attendance_code = class_info[2]
+found_attendance_code = 'nothing'
 
-time.sleep(3600)
-email_content = 'The attendance code for ' + class_name + ' on ' + start_time + ' is ' + attendance_code
-if attendance_code != '':
-    send_email(sender_email, sender_password, recipient, 'Attendance code found', email_content)
-else:
-    print('no found')
+# stop searching after 18:00
+while hour < 18:
+    html = simulate_login(username, password, year, month, day)
+    formatted_date_time = reformat_date_time(year, month, day, hour, 0)
+
+    class_info = get_class_info(html, formatted_date_time)
+    start_time = class_info[0]
+    class_name = class_info[1]
+    attendance_code = class_info[2]
+    email_content = 'The attendance code for ' + class_name + ' on ' + start_time + ' is ' + attendance_code
+
+    if attendance_code == found_attendance_code:
+        print('new attendance code not found')
+        time.sleep(max(55 - now.minute, 0) * 60)
+    elif attendance_code != '':
+        send_email(sender_email, sender_password, recipient, 'Attendance code found', email_content)
+        found_attendance_code = attendance_code
+    else:
+        print('attendance code not found')
+        time.sleep(30)
+
+    time.sleep(30)
+    now = datetime.datetime.now(tz=time_zone)
+    print(now)
+    year = now.year
+    month = now.month
+    day = now.day
+    hour = now.hour

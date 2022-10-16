@@ -113,6 +113,8 @@ def send_email(user, pwd, recipient, subject, body):
         print("failed to send mail")
 
 
+start_time = time.perf_counter()
+
 sender_email = os.environ['sender_email']
 sender_password = os.environ['sender_password']
 recipient = os.environ['recipient']
@@ -162,3 +164,7 @@ while hour < 18:
     month = now.month
     day = now.day
     hour = now.hour
+    
+    now_time = time.perf_counter()
+    if now_time-start_time > 18000:
+        break

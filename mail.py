@@ -166,5 +166,7 @@ while hour < 18:
     hour = now.hour
 
     now_perf = time.perf_counter()
-    if now_perf - start_perf > 18000:
+    running_time = now_perf - start_perf
+    print('running time = ' + str(running_time))
+    if running_time > 18000:
         break

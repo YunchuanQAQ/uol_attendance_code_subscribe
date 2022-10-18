@@ -149,7 +149,8 @@ while hour < 18:
 
     if attendance_code == found_attendance_code:
         print('new attendance code not found')
-        time.sleep(max(55 - now.minute, 0) * 60)
+        # time.sleep(max(55 - now.minute, 0) * 60)
+        time.sleep(60)
     elif attendance_code != '':
         send_email(sender_email, sender_password, recipient, 'Attendance code found', email_content)
         found_attendance_code = attendance_code

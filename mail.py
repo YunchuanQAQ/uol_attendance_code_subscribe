@@ -137,7 +137,7 @@ if hour == 8:
 found_attendance_code = 'nothing'
 
 # stop searching after 18:00
-while hour < 19:
+while hour < 25:
     html = simulate_login(username, password, year, month, day)
     formatted_date_time = reformat_date_time(year, month, day, hour, 0)
 
@@ -169,6 +169,6 @@ while hour < 19:
     now_perf = time.perf_counter()
     running_time = now_perf - start_perf
     print('running time = ' + str(running_time))
-    if running_time > 120:
+    if running_time > 18000:
         print('time limit reached')
         break

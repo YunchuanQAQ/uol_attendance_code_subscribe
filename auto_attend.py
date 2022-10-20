@@ -4,7 +4,7 @@ import urllib
 import time
 import json
 import pytz
-from datetime import date
+import datetime
 
 username = os.environ['username']
 password = os.environ['password']
@@ -169,4 +169,3 @@ while hour < 18:
         submit_attendance_code(username, password, year, month, day, attendance_code, uniqueId, actId)
 
         time.sleep(1800)
-        

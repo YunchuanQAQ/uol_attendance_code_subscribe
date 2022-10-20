@@ -1,9 +1,9 @@
+import os
 import http.cookiejar
 import requests
 import urllib
 import re
 import time
-import uuid
 import json
 from datetime import date
 

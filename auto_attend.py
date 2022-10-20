@@ -169,3 +169,4 @@ while hour < 18:
         submit_attendance_code(username, password, year, month, day, attendance_code, uniqueId, actId)
 
         time.sleep(1800)
+        

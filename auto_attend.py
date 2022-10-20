@@ -165,7 +165,18 @@ while hour < 18:
         attendance_code = extract_info_from_html(html, formatted_date_time, 'attendancecode')
         uniqueId = extract_info_from_html(html, formatted_date_time, 'uniqueid')
         actId = extract_info_from_html(html, formatted_date_time, 'activityid')
+        activitydesc = extract_info_from_html(html,formatted_date_time,'activitydesc')
+        start = extract_info_from_html(html,formatted_date_time,'start')
 
         submit_attendance_code(username, password, year, month, day, attendance_code, uniqueId, actId)
+        print('The attendance code of ' + activitydesc + ' on ' + start + 'has been successfully submitted.')
 
         time.sleep(1800)
+
+    now = datetime.datetime.now(tz=time_zone)
+    print(now)
+    year = now.year
+    month = now.month
+    day = now.day
+    hour = now.hour
+    minute = now.minute

@@ -1,10 +1,6 @@
 name: UoL Attendance code subscribe
 
 on:
-  push:
-    branches: [ main ]
-  pull_request:
-    branches: [ main ]
   schedule:
     - cron: 10 7,12 * * *
 

@@ -1,10 +1,9 @@
 import os
 import http.cookiejar
-import requests
 import urllib
-import re
 import time
 import json
+import pytz
 from datetime import date
 
 username = os.environ['username']

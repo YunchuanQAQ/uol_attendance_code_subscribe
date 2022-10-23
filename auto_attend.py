@@ -145,6 +145,7 @@ def extract_info_from_html(html, date_time, attribute):
 
     return result
 
+start_perf = time.perf_counter()
 
 time_zone = pytz.timezone('Europe/London')
 now = datetime.datetime.now(tz=time_zone)
@@ -189,3 +190,9 @@ while hour < 18:
     day = now.day
     hour = now.hour
     minute = now.minute
+
+    now_perf = time.perf_counter()
+    running_time = now_perf - start_perf
+    print('running time = ' + str(running_time))
+    if running_time > 18000:
+        break

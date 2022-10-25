@@ -169,13 +169,15 @@ while hour < 18:
         activitydesc = extract_info_from_html(html, formatted_date_time, 'activitydesc')
         start = extract_info_from_html(html, formatted_date_time, 'start')
 
+        print(html)
+        print('formatted_date_time = ' + formatted_date_time)
+        print('attendance_code = ' + attendance_code)
+        print('uniqueId = ' + uniqueId)
+        print('activitydesc = ' + activitydesc)
+        print('start = ' + start)
+
         if attendance_code != '':
             print('***************************************************************')
-            print('formatted_date_time = ' + formatted_date_time)
-            print('attendance_code = ' + attendance_code)
-            print('uniqueId = ' + uniqueId)
-            print('activitydesc = ' + activitydesc)
-            print('start = ' + start)
 
             print(submit_attendance_code(username, password, year, month, day, attendance_code, uniqueId, actId))
             print('***************************************************************')

@@ -6,9 +6,6 @@ import json
 import pytz
 import datetime
 
-username = os.environ['username']
-password = os.environ['password']
-
 
 def submit_attendance_code(username, password, year, month, day, attCode, uniqueId, actId):
     attStart = reformat_date_time_for_post(year, month, day, hour, minute)
@@ -145,46 +142,13 @@ def extract_info_from_html(html, date_time, attribute):
 
     return result
 
-start_perf = time.perf_counter()
 
-time_zone = pytz.timezone('Europe/London')
-now = datetime.datetime.now(tz=time_zone)
-print(now)
-year = now.year
-month = now.month
-day = now.day
-hour = now.hour
-minute = now.minute
+def main_program():
+    username = os.environ['username']
+    password = os.environ['password']
+    start_perf = time.perf_counter()
 
-while hour < 18:
-    if minute < 50:
-        time.sleep(300)
-    else:
-        # Get information
-        html = simulate_login(username, password, year, month, day)
-        formatted_date_time = reformat_date_time_for_cookies(year, month, day, hour, minute)
-        attendance_code = extract_info_from_html(html, formatted_date_time, 'attendancecode')
-        uniqueId = extract_info_from_html(html, formatted_date_time, 'uniqueid')
-        actId = extract_info_from_html(html, formatted_date_time, 'activityid')
-        activitydesc = extract_info_from_html(html, formatted_date_time, 'activitydesc')
-        start = extract_info_from_html(html, formatted_date_time, 'start')
-
-        print(html)
-        print('formatted_date_time = ' + formatted_date_time)
-        print('attendance_code = ' + attendance_code)
-        print('uniqueId = ' + uniqueId)
-        print('activitydesc = ' + activitydesc)
-        print('start = ' + start)
-
-        if attendance_code != '':
-            print('***************************************************************')
-
-            print(submit_attendance_code(username, password, year, month, day, attendance_code, uniqueId, actId))
-            print('***************************************************************')
-            print('The attendance code of ' + activitydesc + ' on ' + start + 'has been successfully submitted.')
-
-        time.sleep(1800)
-
+    time_zone = pytz.timezone('Europe/London')
     now = datetime.datetime.now(tz=time_zone)
     print(now)
     year = now.year
@@ -193,8 +157,52 @@ while hour < 18:
     hour = now.hour
     minute = now.minute
 
-    now_perf = time.perf_counter()
-    running_time = now_perf - start_perf
-    print('running time = ' + str(running_time))
-    if running_time > 18000:
-        break
+    while hour < 18:
+        if minute < 50:
+            time.sleep(300)
+        else:
+            # Get information
+            html = simulate_login(username, password, year, month, day)
+            formatted_date_time = reformat_date_time_for_cookies(year, month, day, hour, 0)
+            attendance_code = extract_info_from_html(html, formatted_date_time, 'attendancecode')
+            uniqueId = extract_info_from_html(html, formatted_date_time, 'uniqueid')
+            actId = extract_info_from_html(html, formatted_date_time, 'activityid')
+            activitydesc = extract_info_from_html(html, formatted_date_time, 'activitydesc')
+            start = extract_info_from_html(html, formatted_date_time, 'start')
+
+            print(html)
+            print('formatted_date_time = ' + formatted_date_time)
+            print('attendance_code = ' + attendance_code)
+            print('uniqueId = ' + uniqueId)
+            print('activitydesc = ' + activitydesc)
+            print('start = ' + start)
+
+            if attendance_code != '':
+                print('***************************************************************')
+
+                print(submit_attendance_code(username, password, year, month, day, attendance_code, uniqueId, actId))
+                print('***************************************************************')
+                print('The attendance code of ' + activitydesc + ' on ' + start + 'has been successfully submitted.')
+
+            time.sleep(1800)
+
+        now = datetime.datetime.now(tz=time_zone)
+        print(now)
+        year = now.year
+        month = now.month
+        day = now.day
+        hour = now.hour
+        minute = now.minute
+
+        now_perf = time.perf_counter()
+        running_time = now_perf - start_perf
+        print('running time = ' + str(running_time))
+        if running_time > 18000:
+            break
+
+
+def main():
+    main_program()
+
+if __name__ == '__main__':
+    main()

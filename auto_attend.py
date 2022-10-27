@@ -9,7 +9,7 @@ import datetime
 
 def submit_attendance_code(username, password, year, month, day, attCode, uniqueId, actId):
     attStart = reformat_date_time_for_post(year, month, day, hour, minute)
-    attEnd = reformat_date_time_for_cookies(year, month, day, hour + 1, minute)
+    attEnd = reformat_date_time_for_post(year, month, day, hour + 1, minute)
 
     url = 'https://timetables.liverpool.ac.uk/services/register-attendance-student'
 

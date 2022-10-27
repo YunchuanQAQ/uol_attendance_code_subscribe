@@ -7,9 +7,9 @@ import pytz
 import datetime
 
 
-def submit_attendance_code(username, password, year, month, day, attCode, uniqueId, actId):
-    attStart = reformat_date_time_for_post(year, month, day, hour, minute)
-    attEnd = reformat_date_time_for_post(year, month, day, hour + 1, minute)
+def submit_attendance_code(username, password, year, month, day, start_hour, end_hour, attCode, uniqueId, actId):
+    attStart = reformat_date_time_for_post(year, month, day, start_hour, 0)
+    attEnd = reformat_date_time_for_post(year, month, day, end_hour, 0)
 
     url = 'https://timetables.liverpool.ac.uk/services/register-attendance-student'
 
@@ -101,6 +101,7 @@ def simulate_login(username, password, year, month, day):
 
 
 def force_number_two_digits(number):
+    number = int(number)
     if number < 10:
         result = '0' + str(number)
     else:
@@ -158,7 +159,7 @@ def main_program():
     minute = now.minute
 
     while hour < 18:
-        if minute < 50:
+        if minute < 2:
             time.sleep(300)
         else:
             # Get information
@@ -169,6 +170,7 @@ def main_program():
             actId = extract_info_from_html(html, formatted_date_time, 'activityid')
             activitydesc = extract_info_from_html(html, formatted_date_time, 'activitydesc')
             start = extract_info_from_html(html, formatted_date_time, 'start')
+            end_hour = extract_info_from_html(html, formatted_date_time, 'end')[11:13]
 
             print(html)
             print('formatted_date_time = ' + formatted_date_time)
@@ -176,11 +178,13 @@ def main_program():
             print('uniqueId = ' + uniqueId)
             print('activitydesc = ' + activitydesc)
             print('start = ' + start)
+            print('end_hour = ' + end_hour)
 
             if attendance_code != '':
                 print('***************************************************************')
 
-                print(submit_attendance_code(username, password, year, month, day, attendance_code, uniqueId, actId))
+                print(submit_attendance_code(username, password, year, month, day, hour, end_hour, attendance_code,
+                                             uniqueId, actId))
                 print('***************************************************************')
                 print('The attendance code of ' + activitydesc + ' on ' + start + 'has been successfully submitted.')
 
@@ -203,6 +207,7 @@ def main_program():
 
 def main():
     main_program()
+
 
 if __name__ == '__main__':
     main()

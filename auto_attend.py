@@ -158,8 +158,10 @@ def main_program():
     hour = now.hour
     minute = now.minute
 
+    last_end_hour = -1
+
     while hour < 18:
-        if minute < 2:
+        if minute < 50 or hour < last_end_hour:
             time.sleep(300)
         else:
             # Get information
@@ -171,6 +173,7 @@ def main_program():
             activitydesc = extract_info_from_html(html, formatted_date_time, 'activitydesc')
             start = extract_info_from_html(html, formatted_date_time, 'start')
             end_hour = extract_info_from_html(html, formatted_date_time, 'end')[11:13]
+            last_end_hour = int(end_hour)
 
             print(html)
             print('formatted_date_time = ' + formatted_date_time)
@@ -187,8 +190,6 @@ def main_program():
                                              uniqueId, actId))
                 print('***************************************************************')
                 print('The attendance code of ' + activitydesc + ' on ' + start + 'has been successfully submitted.')
-
-            time.sleep(1800)
 
         now = datetime.datetime.now(tz=time_zone)
         print(now)

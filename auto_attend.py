@@ -158,7 +158,7 @@ def main_program():
     hour = now.hour
     minute = now.minute
 
-    last_end_hour = -1
+    last_end_hour = -1  # In case if some class last for more than one hour
 
     while hour < 18:
         if minute < 50 or hour < last_end_hour:
@@ -173,7 +173,6 @@ def main_program():
             activitydesc = extract_info_from_html(html, formatted_date_time, 'activitydesc')
             start = extract_info_from_html(html, formatted_date_time, 'start')
             end_hour = extract_info_from_html(html, formatted_date_time, 'end')[11:13]
-            last_end_hour = int(end_hour)
 
             print(html)
             print('formatted_date_time = ' + formatted_date_time)
@@ -185,6 +184,7 @@ def main_program():
 
             if attendance_code != '':
                 print('***************************************************************')
+                last_end_hour = int(end_hour)
 
                 print(submit_attendance_code(username, password, year, month, day, hour, end_hour, attendance_code,
                                              uniqueId, actId))
